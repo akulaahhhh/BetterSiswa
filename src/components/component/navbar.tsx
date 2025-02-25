@@ -12,10 +12,22 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "../ui/ThemeToggle";
+import { useTheme } from "next-themes";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // Fixes hydration mismatch in Next.js
+  }, []);
+
+  if (!mounted) return null; // Prevents flickering
+
+  
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -70,14 +82,23 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center max-w-7xl mx-auto ">
-        <Link href="#" className=" hidden lg:flex md:flex" prefetch={false}>
+        <Link href="/" className=" hidden lg:flex md:flex" prefetch={false}>
           {/* <MenuIcon className="h-6 w-6" /> */}
-          <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" />
+          {/* <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" /> */}
+          <img
+            src={
+              theme === "dark" || theme === "system"
+                ? "/BS-classic-dark.svg"
+                : "/BS-classic-light.svg"
+            }
+            alt="Logo"
+            className="h-20 w-20"
+          />
           <span className="sr-only">Acme Inc</span>
         </Link>
         <nav className="ml-auto hidden lg:flex md:flex gap-6 ">
           <Link
-            href="#"
+            href="/"
             className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
             prefetch={false}
           >
@@ -91,7 +112,7 @@ export function Navbar() {
             Scholarship
           </Link>
           <Link
-            href="#"
+            href="about"
             className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
             prefetch={false}
           >
@@ -104,6 +125,7 @@ export function Navbar() {
           >
             Contact
           </Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
