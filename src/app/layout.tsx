@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/component/navbar";
 import { ThemeProvider } from "@/components/component/theme-provider";
 import { jacques_francois } from "./fonts";
+import { Footer } from "@/components/component/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
           >
         <Navbar />
         {children}
+        <Footer/>
         </ThemeProvider>
       </body>
     </html>
