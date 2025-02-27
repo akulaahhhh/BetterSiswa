@@ -14,9 +14,9 @@ export default function Home() {
           <br />
           AND SHAPING A BETTER FUTURE
         </h2>
-        <Link href="/about">
+        <Link href="scholarship">
         
-        <button className={`${jacques_francois.className} mt-8 px-8 py-3 bg-black text-white hover:bg-gray-800 transition-colors`}>
+        <button className={`${jacques_francois.className} mt-8 px-8 py-3 bg-black dark:bg-white dark:text-black text-white dark:hover:bg-gray-300 hover:bg-gray-800 transition-colors`}>
           GET STARTED
         </button>
         </Link>
