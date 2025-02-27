@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id              String      @id @default(uuid())
+  email           String      @unique
+  name            String?
+  age             Int?
+  state           State?
+  ethnicGroup     EthnicGroup?
+  householdIncome HouseholdIncome?
+  incomeTotal     Int?
+  studyLevel      StudyLevel?
+  preferredUni    PreferredUni[]
+  createdAt       DateTime @default(now())
+}
+
+enum EthnicGroup {
+  MALAY
+  CHINESE
+  INDIAN
+  OTHERS
+}
+
+enum State {
+  JOHOR
+  KEDAH
+  KELANTAN
+  MELAKA
+  NEGERI_SEMBILAN
+  PAHANG
+  PERAK
+  PERLIS
+  PULAU_PINANG
+  SABAH
+  SARAWAK
+  SELANGOR
+  TERENGGANU
+  WP_KUALA_LUMPUR
+  WP_LABUAN
+  WP_PUTRAJAYA
+}
+
+enum HouseholdIncome {
+  B40
+  M40
+  T20
+}
+
+enum StudyLevel {
+  SPM
+  DIPLOMA
+  MATRIKULASI
+  FOUNDATION
+}
+
+enum PreferredUni {
+  IPTA
+  IPTS
+  OVERSEAS
+}
