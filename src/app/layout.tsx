@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClerkProvider,SignedOut,SignedIn,SignIn } from '@clerk/nextjs'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/component/navbar";
@@ -18,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en" suppressHydrationWarning className={inter.className}>
       <body >
         <ThemeProvider
@@ -32,5 +34,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
