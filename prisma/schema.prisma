@@ -13,10 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(STUDENT) // Define roles here
+  student   Student?
+  admin     Admin?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Student {
-  id              String      @id @default(uuid())
-  email           String      @unique
-  name            String?
+  userId          String           @id @default(uuid())
   age             Int?
   state           State?
   ethnicGroup     EthnicGroup?
@@ -24,7 +33,28 @@ model Student {
   incomeTotal     Int?
   studyLevel      StudyLevel?
   preferredUni    PreferredUni[]
-  createdAt       DateTime @default(now())
+  moderator       Moderator? 
+  user            User             @relation(fields: [userId], references: [id])
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model Admin {
+  userId    String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Moderator {
+  userId    String   @id @default(uuid()) // Aligns with Student model
+  student   Student  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  STUDENT
 }
 
 enum EthnicGroup {
