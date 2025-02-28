@@ -5,7 +5,7 @@ export default function Dashboard() {
     <>
     <main className="w-full min-h-screen flex flex-col max-w-7xl mx-auto px-4 ">
         <div className="pt-9 flex justify-center">
-          <h2 className={`${jacques_francois.className} text-xl`}>Dashboard</h2>
+          <h2 className={`${jacques_francois.className} text-xl`}>Dashboard User</h2>
         </div>
       </main>
     </>
