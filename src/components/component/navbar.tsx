@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import { useTheme } from "next-themes";
 import { SVGProps } from "react";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
@@ -27,7 +28,7 @@ export function Navbar() {
 
   if (!mounted) return null; // Prevents flickering
 
-  
+
   return (
     <header className="bg-navbar flex h-20 w-full shrink-0 items-center px-4 md:px-6  bg-slate-100 dark:bg-gray-900">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -46,7 +47,7 @@ export function Navbar() {
         <SheetContent side="left">
           <SheetTitle></SheetTitle>
           <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-          <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" />
+            <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" />
             <span className="sr-only">Acme Inc</span>
           </Link>
           <div className="grid gap-2 py-6">
@@ -125,6 +126,28 @@ export function Navbar() {
           >
             Contact
           </Link>
+          <SignedOut>
+            <SignInButton mode="modal" >
+              <button  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal" >
+            <button  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+          <Link
+            href="dashboard"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            prefetch={false}
+          >
+            Dashboard
+          </Link>
+            <UserButton />
+          </SignedIn>
           <ThemeToggle />
         </nav>
       </div>
