@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" suppressHydrationWarning className={inter.className}>
-      <body >
+      <body className="app-bg bg-slate-100 dark:bg-gray-900">
         <ThemeProvider
             attribute="class"
             defaultTheme="light"

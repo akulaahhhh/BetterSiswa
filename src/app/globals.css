@@ -33,6 +33,17 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    /* Grid Texture */
+    /* --grid-color: rgba(79, 79, 79, 0.12); */
+    --grid-color: rgba(74, 112, 237,0.12);
+    --grid-opacity: 1;
+    --grid-size-x: 32px;
+    --grid-size-y: 32px;
+    /* Dots Texture */
+    /* --grid-color: rgb(66, 55, 54);
+    --grid-opacity: 1;
+    --grid-size-x: 20px;
+    --grid-size-y: 20px; */
   }
   .dark {
     --background: oklch(0.21 0.034 264.665);
@@ -59,7 +70,63 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    /* Grid  */
+    --grid-color: rgba(79, 79, 79, 0.2);
+    --grid-opacity: 1;
+    /*  Dots Texture */
+    /* --grid-color: rgb(66, 55, 54);
+    --grid-opacity: 1; */
   }
+
+  /* grid */
+  .app-bg {
+     position: relative;
+    min-height: 100vh;
+    background-color: inherit; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; 
+  }
+  /* dots */
+  /* .app-bg {
+    position: relative;
+    min-height: 100vh;
+    background-color: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } */
+
+  /* grid overlay using a pseudo element so it doesn't interfere with content */
+  /* grid */
+  .app-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-color) 2px, transparent 2px),
+      linear-gradient(to bottom, var(--grid-color) 2px, transparent 2px);
+    background-size: var(--grid-size-x) var(--grid-size-y);
+    opacity: var(--grid-opacity);
+    -webkit-mask-image: radial-gradient(ellipse 80% 73% at 50% 0%, #000 70%, transparent 110%);
+    mask-image: radial-gradient(ellipse 80% 73% at 50% 0%, #000 70%, transparent 110%);
+
+  }
+
+  /* dots */
+  /* .app-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size-x) var(--grid-size-y);
+    opacity: var(--grid-opacity);
+    
+    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 110%);
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 110%);
+  } */
 }
 
 @layer base {
