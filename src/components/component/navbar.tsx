@@ -16,7 +16,13 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import { useTheme } from "next-themes";
 import { SVGProps } from "react";
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
@@ -27,7 +33,6 @@ export function Navbar() {
   }, []);
 
   if (!mounted) return null; // Prevents flickering
-
 
   return (
     <header className="bg-navbar flex h-20 w-full shrink-0 items-center px-4 md:px-6  bg-slate-100 dark:bg-gray-900">
@@ -58,27 +63,27 @@ export function Navbar() {
             >
               Home
             </Link>
-            <Link
+            {/* <Link
               href="#"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               Scholarship
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               href="#"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               About
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               href="#"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               Contact
-            </Link>
+            </Link> */}
           </div>
         </SheetContent>
       </Sheet>
@@ -105,47 +110,47 @@ export function Navbar() {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             href="scholarship"
             className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
             prefetch={false}
           >
             Scholarship
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             href="about"
             className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
             prefetch={false}
           >
             About
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             href="#"
             className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
             prefetch={false}
           >
             Contact
-          </Link>
+          </Link> */}
           <SignedOut>
-            <SignInButton mode="modal" >
-              <button  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
+            <SignInButton mode="modal">
+              <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
                 Sign In
               </button>
             </SignInButton>
-            <SignUpButton mode="modal" >
-            <button  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
+            <SignUpButton mode="modal">
+              <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
                 Sign Up
               </button>
             </SignUpButton>
           </SignedOut>
           <SignedIn>
-          <Link
-            href="dashboard"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Dashboard
-          </Link>
+            <Link
+              href="dashboard"
+              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+              prefetch={false}
+            >
+              Dashboard
+            </Link>
             <UserButton />
           </SignedIn>
           <ThemeToggle />
@@ -177,5 +182,3 @@ function MenuIcon(props: MenuIconProps) {
     </svg>
   );
 }
-
-
