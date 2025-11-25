@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClerkProvider,SignedOut,SignedIn,SignIn } from '@clerk/nextjs'
+import { ClerkProvider, SignedOut, SignedIn, SignIn } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/component/navbar";
@@ -20,20 +20,20 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en" suppressHydrationWarning className={inter.className}>
-      <body className="app-bg bg-slate-100 dark:bg-gray-900">
-        <ThemeProvider
+      <html lang="en" suppressHydrationWarning className={inter.className}>
+        <body className="app-bg bg-slate-100 dark:bg-gray-900">
+          <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-        <Navbar />
-        {children}
-        <Footer/>
-        </ThemeProvider>
-      </body>
-    </html>
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
