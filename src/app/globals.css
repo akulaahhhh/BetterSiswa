@@ -81,6 +81,7 @@
   /* grid */
   .app-bg {
      position: relative;
+     z-index: 0; /* establish stacking context */
     min-height: 100vh;
     background-color: inherit; 
     -webkit-font-smoothing: antialiased;
@@ -102,7 +103,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1; /* <- send texture behind everything (fixes invisible modal backdrop) */
     background-image:
       linear-gradient(to right, var(--grid-color) 2px, transparent 2px),
       linear-gradient(to bottom, var(--grid-color) 2px, transparent 2px);

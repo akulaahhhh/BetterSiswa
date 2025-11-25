@@ -23,7 +23,7 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-export function Navbar() {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -35,24 +35,22 @@ export function Navbar() {
   if (!mounted) return null; // Prevents flickering
 
   return (
-    <header className="bg-navbar flex h-20 w-full shrink-0 items-center px-4 md:px-6  bg-slate-100 dark:bg-gray-900">
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+      <Sheet>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className={`lg:hidden md:hidden ${isOpen ? "hidden" : ""}`}
-            onClick={() => setIsOpen(true)}
-          >
-            {/* <MenuIcon className="h-6 w-6" /> */}
-            <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" />
+          <Button variant="outline" size="icon" className="lg:hidden">
+            <MenuIcon className="h-6 w-6" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left">
-          <SheetTitle></SheetTitle>
+        <SheetContent side="left" className="bg-white/70 dark:bg-gray-950/70">
+          <SheetTitle className="sr-only">Navigation menu</SheetTitle>
           <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-            <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" />
+            <img src={
+              theme === "dark" || theme === "system"
+                ? "/BS-classic-dark.svg"
+                : "/BS-classic-light.svg"
+            } alt="Logo" className="h-25 w-25" />
             <span className="sr-only">Acme Inc</span>
           </Link>
           <div className="grid gap-2 py-6">
@@ -84,13 +82,36 @@ export function Navbar() {
             >
               Contact
             </Link> */}
+            <SignedOut >
+            <SignInButton mode="modal" >
+              <button className="flex w-full items-center py-2 text-lg font-semibold">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="flex w-full items-center py-2 text-lg font-semibold">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <Link
+              href="dashboard"
+             className="flex w-full items-center py-2 text-lg font-semibold"
+              prefetch={false}
+            >
+              Dashboard
+            </Link>
+            <UserButton />
+          </SignedIn>
+            <div className="">
+              <ThemeToggle />
+            </div>
           </div>
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center max-w-7xl mx-auto">
         <Link href="/" className=" hidden lg:flex md:flex" prefetch={false}>
-          {/* <MenuIcon className="h-6 w-6" /> */}
-          {/* <img src="/BS-classic.svg" alt="Logo" className="h-25 w-25" /> */}
           <img
             src={
               theme === "dark" || theme === "system"

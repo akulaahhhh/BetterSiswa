@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider, SignedOut, SignedIn, SignIn } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/component/navbar";
+import Navbar from "@/components/component/navbar";
 import { ThemeProvider } from "@/components/component/theme-provider";
 import { jacques_francois } from "./fonts";
 import { Footer } from "@/components/component/footer";
