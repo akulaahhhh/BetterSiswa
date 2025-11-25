@@ -1,5 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## COMPLETE STATUS
+- Authentication
+- Main Page
+- Background
+- Theme
+
+## PENDING STATUS
+- Coming Soon Banner
+- Responsiveness
+
+## TOOLS IN DEVELOPMENT
+- Peer to Peer (P2P) File Transfer
+
+## Tech Uses
+- Framework : NextJS
+- Authentication : Clerk
+- Background : https://bg.ibelick.com/  (Collection of modern, background snippets)
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 ## Getting Started
 
 First, run the development server:
