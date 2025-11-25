@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## COMPLETE STATUS
+- Authentication
+- Main Page
+- Background
+- Theme
+
+## PENDING STATUS
+- Coming Soon Banner
+- Responsiveness
+- TOOLS : P2P File Transfer
+
+
+
 ## Getting Started
 
 First, run the development server:
