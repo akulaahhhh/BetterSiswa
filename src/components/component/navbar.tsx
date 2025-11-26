@@ -4,12 +4,6 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 "use client";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,25 +11,60 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 import { useTheme } from "next-themes";
 import { SVGProps } from "react";
 import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
   SignedIn,
   SignedOut,
   SignInButton,
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "P2P File Transfer",
+    href: "/p2p-file-transfer",
+    description:
+      "The simplest way to directly transfer files between peers.",
+  },
+  {
+    title: "Coming Soon",
+    href: "/",
+    description:
+      "Something big is coming!.",
+  },
+];
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
+  const logoSrc =
+    theme === "dark" || theme === "system"
+      ? "/BS-classic-dark.svg"
+      : "/BS-classic-light.svg";
   useEffect(() => {
-    setMounted(true); // Fixes hydration mismatch in Next.js
-  }, []);
-
+    setMounted(true);
+  }, []); // Fixes hydration mismatch in Next.js
   if (!mounted) return null; // Prevents flickering
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <header className="relative flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+      {/* MOBILE MENU */}
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -46,11 +75,7 @@ export default function Navbar() {
         <SheetContent side="left" className="bg-white/70 dark:bg-gray-950/70">
           <SheetTitle className="sr-only">Navigation menu</SheetTitle>
           <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-            <img src={
-              theme === "dark" || theme === "system"
-                ? "/BS-classic-dark.svg"
-                : "/BS-classic-light.svg"
-            } alt="Logo" className="h-25 w-25" />
+            <img src={logoSrc} alt="Logo" className="h-25 w-25" />
             <span className="sr-only">Acme Inc</span>
           </Link>
           <div className="grid gap-2 py-6">
@@ -61,71 +86,39 @@ export default function Navbar() {
             >
               Home
             </Link>
-            {/* <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Scholarship
-            </Link> */}
-            {/* <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              About
-            </Link> */}
-            {/* <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Contact
-            </Link> */}
-             <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Sign In
-            </Link> 
-            <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Sign Up
-            </Link>
-            {/* <SignedOut >
-            <SignInButton mode="modal" >
-              <button className="flex w-full items-center py-2 text-lg font-semibold">
-                Sign In
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="flex w-full items-center py-2 text-lg font-semibold">
-                Sign Up
-              </button>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
-            <Link
-              href="dashboard"
-             className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Dashboard
-            </Link>
-            <UserButton />
-          </SignedIn> */}
+
             <div className="">
-              <ThemeToggle />
+              {/* Mobile Tools list */}
+              <div className="mt-4 border-t pt-4">
+                <div className="mb-1 flex w-full items-center text-lg font-semibold">Tools</div>
+                <ul className="grid gap-2">
+                  {components.map((c) => (
+                    <li key={c.title}>
+                      <Link
+                        href={c.href}
+                        className="group flex w-full items-start gap-3 rounded-md p-3 no-underline hover:bg-gray-50 dark:hover:bg-gray-800"
+                        prefetch={false}
+                      >
+                        {/* <span className="flex h-9 w-9 items-center justify-center rounded-md bg-gray-100 text-sm dark:bg-gray-800">🔧</span> */}
+                        <div className="text-sm">
+                          <div className="font-medium">{c.title}</div>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            {c.description}
+                          </p>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full items-center max-w-7xl mx-auto">
-        <Link href="/" className=" hidden lg:flex md:flex" prefetch={false}>
+
+      {/* DESKTOP - Left: Logo */}
+      <div className="flex items-center md:ml-0 lg:ml-0">
+        <Link href="/" className="hidden lg:flex md:flex mr-6 sticky">
           <img
             src={
               theme === "dark" || theme === "system"
@@ -137,59 +130,57 @@ export default function Navbar() {
           />
           <span className="sr-only">Acme Inc</span>
         </Link>
-        <nav className="ml-auto hidden lg:flex md:flex gap-6 ">
-          <Link
-            href="/"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Home
-          </Link>
-          {/* <Link
-            href="scholarship"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Scholarship
-          </Link> */}
-          {/* <Link
-            href="about"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            About
-          </Link> */}
-          {/* <Link
-            href="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Contact
-          </Link> */}
-          {/* <SignedOut>
-            <SignInButton mode="modal">
-              <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
-                Sign In
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50">
-                Sign Up
-              </button>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
-            <Link
-              href="dashboard"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-slate-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-              prefetch={false}
-            >
-              Dashboard
-            </Link>
-            <UserButton />
-          </SignedIn> */}
-          <ThemeToggle />
-        </nav>
+      </div>
+
+      {/* DESKTOP - Center: Tools (centered absolutely) */}
+      <nav className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
+        <NavigationMenu>
+          <NavigationMenuList className="flex items-center gap-6">
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href="/">Home</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 m-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  {components.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </nav>
+
+      {/* DESKTOP - Right: Auth + Theme */}
+      <div className="ml-auto flex items-center gap-3">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <Button variant="ghost">Sign In</Button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <Button>Sign Up</Button>
+          </SignUpButton>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+
+        <ThemeToggle />
       </div>
     </header>
   );
@@ -215,5 +206,28 @@ function MenuIcon(props: MenuIconProps) {
       <line x1="4" x2="20" y1="6" y2="6" />
       <line x1="4" x2="20" y1="18" y2="18" />
     </svg>
+  );
+}
+
+function ListItem({
+  title,
+  children,
+  href,
+  ...props
+}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+  return (
+    <li {...props}>
+      <NavigationMenuLink asChild>
+        <Link
+          href={href}
+          className="block select-none space-y-1 rounded-md p-3 m-1 leading-none no-underline transition-colors hover:bg-gray-300 dark:hover:bg-gray-800"
+        >
+          <div className="text-sm font-medium">{title}</div>
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
   );
 }
